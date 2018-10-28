@@ -1,4 +1,4 @@
-package com.example.part2.ex03;
+package spring5.practice.webflux.ex02;
 
 import java.util.function.Supplier;
 

@@ -1,4 +1,4 @@
-package com.example.part2.ex01;
+package spring5.practice.webflux.ex01;
 
 import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.http.server.reactive.ReactorHttpHandlerAdapter;
@@ -17,33 +17,26 @@ import reactor.ipc.netty.http.server.HttpServer;
  * 
  * 1.함수형 스타일  Webflux(RouterFunction + HandlerFunction 을 이용한 개발)
  * 
- * 익명클래스
+ * 람다
  *
  **/
-public class Ex01App {
+public class Ex02App {
 
 	public static void main(String[] args) throws Exception {
 		
-		HandlerFunction<ServerResponse> helloHandler = new HandlerFunction<ServerResponse>(){
-			@Override
-			public Mono<ServerResponse> handle(ServerRequest req) {
-					return ServerResponse.ok().syncBody("Hello " + req.pathVariable("name"));
-			}
-		};
+		HandlerFunction<ServerResponse> helloHandler = 
+			(ServerRequest req) -> ServerResponse.ok().syncBody("Hello " + req.pathVariable("name"));
 		
-		RouterFunction<ServerResponse> routerFunction = new RouterFunction<ServerResponse>() {
-			@Override
-			public Mono<HandlerFunction<ServerResponse>> route(ServerRequest request) {
-				return RequestPredicates.path("/hello/{name}").test(request) ? Mono.just(helloHandler) : Mono.empty();
-			}
-		};
+		RouterFunction<ServerResponse> routerFunction = 
+			(ServerRequest req) -> RequestPredicates.path("/hello/{name}").test(req) ? Mono.just(helloHandler) : 
+																					   Mono.empty();
 				
 		HttpHandler httpHandler = RouterFunctions.toHttpHandler(routerFunction);
 		ReactorHttpHandlerAdapter adapter = new ReactorHttpHandlerAdapter(httpHandler);
 
-		HttpServer server = HttpServer.create("localhost", 8089);
+		HttpServer server = HttpServer.create("localhost", 8088);
 		server.newHandler(adapter).subscribe();
 
-		System.in.read();		
+		System.in.read();	
 	}
 }

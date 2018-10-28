@@ -1,4 +1,4 @@
-package com.example.part2.ex01;
+package spring5.practice.webflux.ex01;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.path;
 import static org.springframework.web.reactive.function.server.RouterFunctions.toHttpHandler;

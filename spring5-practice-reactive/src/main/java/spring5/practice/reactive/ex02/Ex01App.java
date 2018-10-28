@@ -11,7 +11,7 @@ import org.reactivestreams.Subscription;
  * < Implementation of Reactive Streams API's Interface > 
  * 
  * 
- * Reactive Streams -> java.util.concurrency.flow(JDK9)
+ * Reactive Streams -> java.util.concurrency.Flow(JDK9)
  * by Neflix, Pivotal, 
  * 
  * - document: http://www.reactive-streams.org/
